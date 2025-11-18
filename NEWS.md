@@ -27,6 +27,12 @@ This is a major rewrite of the waffle package to use only ggplot2 for rendering,
 * `iron()` function uses patchwork's `/` operator for vertical stacking
 * Replaced `plyr::rbind.fill()` with base R `do.call(rbind, ...)` in stat transformations
 
+### Testing
+
+* Added comprehensive test suite with testthat (>= 3.0.0)
+* Tests verify all breaking changes and new implementations
+* Coverage includes: geom functionality, dependencies, colors, iron() function, and pictograms
+
 ### Compatibility
 
 * All core waffle chart functionality remains the same

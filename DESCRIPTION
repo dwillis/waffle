@@ -25,6 +25,7 @@ Description: Square pie charts (a.k.a. waffle charts) can be used
 Encoding: UTF-8
 Copyright: file inst/COPYRIGHTS
 Suggests:
+    testthat (>= 3.0.0),
     knitr,
     rmarkdown,
     dplyr,
@@ -45,3 +46,4 @@ Imports:
     rlang,
     utils
 RoxygenNote: 7.2.3
+Config/testthat/edition: 3
