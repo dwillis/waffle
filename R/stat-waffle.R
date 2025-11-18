@@ -2,12 +2,8 @@
 #' @export
 stat_waffle <- function(mapping = NULL, data = NULL, geom = "waffle",
                         n_rows = 10, make_proportional = FALSE, flip = FALSE,
-                        radius = grid::unit(0, "npc"),
                         na.rm = FALSE, show.legend = NA,
                         inherit.aes = TRUE, ...) {
-
-  # msg("Called => stat_waffle::stat_waffle()")
-  # msg("Done With => stat_waffle::stat_waffle()")
 
   layer(
     stat = StatWaffle,
@@ -23,7 +19,6 @@ stat_waffle <- function(mapping = NULL, data = NULL, geom = "waffle",
       n_rows = n_rows,
       make_proportional = make_proportional,
       flip = flip,
-      radius = radius,
       ...
     )
   )
@@ -36,7 +31,7 @@ StatWaffle <- ggplot2::ggproto(
   `_class` = "StatWaffle",
   `_inherit` = ggplot2::Stat,
 
-  extra_params = c("na.rm", "n_rows", "make_proportional", "flip", "radius"),
+  extra_params = c("na.rm", "n_rows", "make_proportional", "flip"),
 
   required_aes = c("fill", "values", "colour", "label"),
 
@@ -130,7 +125,7 @@ StatWaffle <- ggplot2::ggproto(
 
     }) -> p
 
-    p <- plyr::rbind.fill(p)
+    p <- do.call(rbind, p)
     p[[use]] <- factor(p[[use]], levels=flvls)
     p[["colour"]] <- factor(p[["colour"]], levels = clvls)
 

@@ -1,23 +1,6 @@
 draw_key_waffle <- function(data, params, size, ...) {
-
-  # msg("Called => draw_key_waffle()")
-  #
-  # print(str(data, 1))
-  # print(str(params, 1))
-  # print(str(size, 1))
-  # print(str(list(...), 1))
-
-  grid::roundrectGrob(
-    r = min(params$radius, unit(3, "pt")),
-    default.units = "native",
-    width = 0.9, height = 0.9,
-    name = "lkey",
-    gp = grid::gpar(
-      col = params[["color"]][[1]] %l0% params[["colour"]][1] %l0% data[["colour"]][[1]] %l0% "#00000000",
-      fill = alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
-      lty = data$linetype %||% 1
-    )
-  )
+  # Use standard polygon key (square) for waffle charts
+  ggplot2::draw_key_polygon(data, params, size)
 }
 
 #' Waffle (Square pie chart) Geom
@@ -36,7 +19,6 @@ draw_key_waffle <- function(data, params, size, ...) {
 #'     Useful to achieve waffle column chart effect. Defaults is `FALSE`.
 #' @param make_proportional compute proportions from the raw values? (i.e. each
 #'        value `n` will be replaced with `n`/`sum(n)`); default is `FALSE`.
-#' @param radius radius for round squares
 #' @param data The data to be displayed in this layer. There are three
 #'    options:
 #'
@@ -80,11 +62,7 @@ draw_key_waffle <- function(data, params, size, ...) {
 geom_waffle <- function(mapping = NULL, data = NULL,
                         n_rows = 10, make_proportional = FALSE, flip = FALSE,
                         na.rm = FALSE, show.legend = NA,
-                        radius = grid::unit(0, "npc"),
                         inherit.aes = TRUE, ...) {
-
-  # msg("Called => geom_waffle::geom_waffle()")
-  # msg("Done With => geom_waffle::geom_waffle()")
 
   layer(
     stat = StatWaffle,
@@ -100,7 +78,6 @@ geom_waffle <- function(mapping = NULL, data = NULL,
       n_rows = n_rows,
       make_proportional = make_proportional,
       flip = flip,
-      radius = radius,
       ...
     )
   )
@@ -110,46 +87,12 @@ geom_waffle <- function(mapping = NULL, data = NULL,
 #' @export
 GeomWaffle <- ggplot2::ggproto(
   `_class` = "GeomWaffle",
-  `_inherit` = GeomRtile,
+  `_inherit` = ggplot2::GeomTile,
 
   default_aes = ggplot2::aes(
     fill = NA, alpha = NA, colour = NA,
     size = 0.125, linetype = 1, width = NA, height = NA
   ),
-
-  draw_group = function(self, data, panel_params, coord,
-                        n_rows = 10, make_proportional = FALSE, flip = FALSE,
-                        radius = grid::unit(0, "npc")) {
-
-    # msg("Called => GeomWaffle::draw_group()")
-
-    coord <- ggplot2::coord_equal()
-    grobs <- GeomRtile$draw_panel(data, panel_params, coord, radius)
-
-    # msg("Done With => GeomWaffle::draw_group()")
-
-    ggname("geom_waffle", grid::grobTree(children = grobs))
-
-  },
-
-
-  draw_panel = function(self, data, panel_params, coord,
-                        n_rows = 10, make_proportional = FALSE, flip = FALSE,
-                        radius = grid::unit(0, "npc")) {
-
-    # msg("Called => GeomWaffle::draw_panel()")
-
-    coord <- ggplot2::coord_equal()
-
-    # grid::gList(
-    grobs <- GeomRtile$draw_panel(data, panel_params, coord, radius)
-    # ) -> grobs
-
-    # msg("Done With => GeomWaffle::draw_panel()")
-
-    ggname("geom_waffle", grid::grobTree(children = grobs))
-
-  },
 
   draw_key = draw_key_waffle
 

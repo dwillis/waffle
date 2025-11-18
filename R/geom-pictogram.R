@@ -31,20 +31,15 @@ scale_label_pictogram <- function(..., values, aesthetics = "label") {
 #' @export
 draw_key_pictogram <- function(data, params, size) {
 
-  # msg("==> draw_key_pictogram()")
-  #
-  # print(str(data, 1))
-  # print(str(params, 1))
-
   if (is.null(data$label)) data$label <- "a"
 
-  textGrob(
+  grid::textGrob(
     label = data$label,
     x = 0.5, y = 0.5,
     rot = data$angle %||% 0,
     hjust = data$hjust %||% 0,
     vjust = data$vjust %||% 0.5,
-    gp = gpar(
+    gp = grid::gpar(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
       fontfamily = data$family %||% "",
       fontface = data$fontface %||% 1,
@@ -137,17 +132,10 @@ GeomPictogram <- ggplot2::ggproto(
 
 
   draw_group = function(self, data, panel_params, coord,
-                        n_rows = 10, make_proportional = FALSE, flip = FALSE,
-                        radius = grid::unit(0, "npc")) {
-
-    # msg("Called => GeomPictogram::draw_group()")
+                        n_rows = 10, make_proportional = FALSE, flip = FALSE) {
 
     coord <- ggplot2::coord_equal()
-    grobs <- GeomText$draw_panel(data, panel_params, coord, parse = FALSE, check_overlap = FALSE)
-
-    # msg("Done With => GeomPictogram::draw_group()")
-
-    ggname("geom_pictogram", grid::grobTree(children = grobs))
+    GeomText$draw_panel(data, panel_params, coord, parse = FALSE, check_overlap = FALSE)
 
   },
 
@@ -155,15 +143,8 @@ GeomPictogram <- ggplot2::ggproto(
   draw_panel = function(self, data, panel_params, coord,
                         n_rows = 10, make_proportional = FALSE, flip = FALSE, ...) {
 
-    # msg("Called => GeomPictogram::draw_panel()")
-    # print(str(data, 1))
-
     coord <- ggplot2::coord_equal()
-    grobs <- GeomText$draw_panel(data, panel_params, coord, parse = FALSE, check_overlap = FALSE)
-
-    # msg("Done With => GeomPictogram::draw_panel()")
-
-    ggname("geom_pictogram", grid::grobTree(children = grobs))
+    GeomText$draw_panel(data, panel_params, coord, parse = FALSE, check_overlap = FALSE)
 
   },
 
