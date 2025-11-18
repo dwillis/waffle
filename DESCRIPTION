@@ -1,8 +1,8 @@
 Package: waffle
 Type: Package
 Title: Create Waffle Chart Visualizations
-Version: 1.0.2
-Date: 2023-09-30
+Version: 2.0.0
+Date: 2025-11-18
 Authors@R: c(
     person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 
            comment = c(ORCID = "0000-0001-5670-2640")),
@@ -34,17 +34,14 @@ Depends:
     ggplot2 (>= 3.1.0)
 License: GPL (>= 2)
 Imports:
-    RColorBrewer,
     grid,
-    gridExtra,
-    gtable,
+    patchwork,
     extrafont,
     curl,
     stringr,
     stats,
     htmlwidgets,
     DT,
-    plyr,
     rlang,
     utils
 RoxygenNote: 7.2.3

@@ -107,8 +107,13 @@ waffle <- function(parts, rows=10, keep=TRUE, xlab=NULL, title=NULL, colors=NA,
 
   names(parts) <- part_names
 
-  # use Set2 if no colors are specified
-  if (all(is.na(colors))) colors <- suppressWarnings(brewer.pal(length(parts), "Set2"))
+  # use Set2 palette if no colors are specified
+  # Set2 colors from ColorBrewer (hardcoded to avoid dependency)
+  set2_colors <- c("#66C2A5", "#FC8D62", "#8DA0CB", "#E78AC3",
+                   "#A6D854", "#FFD92F", "#E5C494", "#B3B3B3")
+  if (all(is.na(colors))) {
+    colors <- rep(set2_colors, length.out = length(parts))
+  }
 
   # make one big vector of all the bits
   parts_vec <- unlist(sapply(1:length(parts), function(i) {

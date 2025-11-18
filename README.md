@@ -3,6 +3,17 @@
 
 Create Waffle Chart Visualizations
 
+## Version 2.0.0 - ggplot2-Only Rewrite
+
+**Major Changes**: This version has been rewritten to use only ggplot2 for rendering, removing custom grid graphics geoms. See [NEWS.md](NEWS.md) for full details.
+
+**Breaking Changes**:
+- Rounded corners have been removed (waffle tiles are now square)
+- The `radius` parameter has been removed from `geom_waffle()` and `stat_waffle()`
+- Dependency changes: Added `patchwork`, removed `RColorBrewer`, `gridExtra`, `gtable`, and `plyr`
+
+All other functionality remains the same!
+
 ## Description
 
 Square pie charts (a.k.a. waffle charts) can be used to communicate
@@ -68,9 +79,9 @@ library(ggplot2)
 library(dplyr)
 library(waffle)
 
-# current verison
+# current version
 packageVersion("waffle")
-## [1] '1.0.2'
+## [1] '2.0.0'
 ```
 
 ### Some new bits up first
