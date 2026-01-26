@@ -61,9 +61,7 @@ The following functions are implemented:
 ## Installation
 
 ``` r
-install.packages("waffle") # NOTE: CRAN version is 0.7.0
-# or
-remotes::install_github("hrbrmstr/waffle")
+remotes::install_github("dwillis/waffle")
 ```
 
 NOTE: To use the ‘remotes’ install options you will need to have the
